@@ -1,0 +1,33 @@
+//created on: 26-sep-2015
+package gridpoc.drools
+
+import gridpoc.drools.DataContext;
+import gridpoc.drools.TaskFlow;
+import gridpoc.drools.TaskFlowFactory;
+ 
+rule "Global View"
+    when
+        dc : DataContext( clientType == DataContext.GV)
+    then
+        System.out.println( "Client validated:"  + dc.getClientId() );
+        TaskFlow tf = TaskFlowFactory.BuildFactory(TaskFlowFactory.GV_PIPELINE);
+        System.out.println( tf );
+end
+
+rule "Workday"
+    when
+        dc : DataContext( clientType == DataContext.WORKDAY )
+    then
+        System.out.println( "Client validated:" + dc.getClientId() );
+        TaskFlow tf = TaskFlowFactory.BuildFactory(TaskFlowFactory.WORKDAY_PIPELINE);
+        System.out.println( tf );
+end
+
+rule "Streamline"
+    when
+        dc : DataContext( clientType == DataContext.STREAMLINE )
+    then
+        System.out.println( "Client validated:" + dc.getClientId() );
+        TaskFlow tf = TaskFlowFactory.BuildFactory(TaskFlowFactory.SL_PIPELINE);
+        System.out.println( tf );
+end
